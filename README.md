@@ -1,53 +1,56 @@
-# e-commerce-backoffice
-
-Python Playwright Automation
+# Python Playwright Automation
 
 This repository contains a Python project using Playwright to automate web browsers for tasks like web scraping, end-to-end testing, and more.
 
-Prerequisites
+## Prerequisites
 
 Before you begin, make sure you have the following installed:
 
-Python 3.7 or later
+- Python 3.7 or later
+- pip (Python's package installer)
 
-pip (Python's package installer)
+## Installation
 
-Installation
+1. Clone this repository to your local machine:
 
-Clone this repository to your local machine:
+    ```bash
+    git clone https://github.com/yourusername/python-playwright.git
+    cd python-playwright
+    ```
 
-git clone https://github.com/yourusername/python-playwright.git
-cd python-playwright
+2. Install the necessary dependencies:
 
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-Install the necessary dependencies:
+3. Install Playwright and its browser dependencies:
 
-pip install -r requirements.txt
+    ```bash
+    python -m playwright install
+    ```
 
-
-Install Playwright and its browser dependencies:
-
-python -m playwright install
-
-Project Structure
+## Project Structure
 
 Here's an overview of the project structure:
 
 python-playwright/
-├── tests/              # Directory containing all your test scripts
-│   ├── test_example.py  # Sample test script
-│   └── ...
-├── requirements.txt     # Python dependencies
+├── tests/ # Directory containing all your test scripts
+│ ├── test_example.py # Sample test script
+│ └── ...
+├── requirements.txt # Python dependencies
 ├── playwright.config.py # Playwright configuration file
-└── README.md            # This file
+└── README.md # This file
 
-Usage
-Running Tests
+
+## Usage
+
+### Running Tests
 
 To run the automated tests, you can use the following command:
 
+```bash
 python -m pytest
-
 
 This will automatically discover and run all the test files located in the tests/ directory.
 
@@ -74,11 +77,13 @@ You can execute the script with:
 
 python test_example.py
 
+
 Configuration
 
 You can configure the browser context, launch options, and other settings by modifying the playwright.config.py file.
 
 Example Configuration:
+
 from playwright.sync_api import sync_playwright
 
 def config_browser():
@@ -101,7 +106,6 @@ To install all dependencies at once:
 
 pip install -r requirements.txt
 
-
 requirements.txt example:
 
 playwright
@@ -112,7 +116,6 @@ Troubleshooting
 If you encounter an error related to missing browsers, run:
 
 python -m playwright install
-
 
 If you're running into issues with the version of Playwright, try updating it:
 
@@ -135,8 +138,3 @@ Commit your changes: git commit -m 'Add feature or fix issue'
 Push to the branch: git push origin feature-branch
 
 Create a pull request
-
-License
-
-This project is licensed under the MIT License - see the LICENSE
- file for details.
