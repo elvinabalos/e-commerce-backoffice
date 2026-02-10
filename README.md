@@ -33,7 +33,7 @@ Before you begin, make sure you have the following installed:
 ## Project Structure
 
 Here's an overview of the project structure:
-
+'''
 python-playwright/
 ├── tests/ # Directory containing all your test scripts
 │ ├── test_example.py # Sample test script
@@ -41,7 +41,7 @@ python-playwright/
 ├── requirements.txt # Python dependencies
 ├── playwright.config.py # Playwright configuration file
 └── README.md # This file
-
+'''
 
 Contributing
 
