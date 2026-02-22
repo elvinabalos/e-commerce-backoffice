@@ -1,28 +1,42 @@
-from playwright.sync_api import Page, expect
+import pytest
+
+# ===================
+# POSITIVE TEST
+# ===================
+def test_login_success(login_page, test_data):
+    login_page.login(
+        test_data["admin"]["username"],
+        test_data["admin"]["password"]
+    )
+    login_page.assert_login_success()
+    login_page.logout()
 
 
-def test_login(page: Page):
+# ===================
+# NEGATIVE TESTS
+# ===================
+@pytest.mark.parametrize("username,password", [
+    ("superadmin", "wrongpass"),      # wrong password
+    ("wronguser", "superadmin031819"),# wrong username
+    ("", "superadmin031819"),         # empty username
+    ("superadmin", ""),                # empty password
+    ("", ""),                          # both empty
+])
+def test_login_negative(login_page, username, password):
+    login_page.login(username, password)
+    login_page.assert_login_failed()
 
-    # Navigate (use base-url if configured)
-    page.goto("/")
-
-    # Login
-    page.locator("input[placeholder='Enter Username']").fill("superadmin")
-    page.locator("input[placeholder='Enter Password']").fill("superadmin031819")
-    page.get_by_role("button", name="Login").click()
-
-    # Assert successful login
-    expect(page).to_have_url("/control-panel")
-    expect(page.locator("div.module-header").get_by_text("Control Panel")).to_be_visible()
-
-    # Logout
-    page.locator("div[title='User Menu']").click()
-    page.get_by_text("Logout").click()
-
-    # Confirm logout modal
-    expect(page.get_by_text("Are you sure you want to logout?")).to_be_visible()
-    page.get_by_role("button", name="Ok").click()
-
-    # Verify redirect to login page
-    expect(page).to_have_url("/")
-    expect(page.locator("input[placeholder='Enter Username']")).to_be_visible()
+# ===================
+# EDGE CASES
+# ===================
+@pytest.mark.parametrize("username,password", [
+    # (" superadmin ", "superadmin031819"),      # leading/trailing space
+    # ("SUPERADMIN", "superadmin031819"),        # case sensitivity
+    ("superadmin", "SUPERADMIN031819"),        # case password
+    ("!"*256, "superadmin031819"),             # very long username
+    ("superadmin", "!"*256),                   # very long password
+    ("<script>alert(1)</script>", "superadmin031819"),  # XSS injection
+])
+def test_login_edge_cases(login_page, username, password):
+    login_page.login(username, password)
+    login_page.assert_login_failed()
